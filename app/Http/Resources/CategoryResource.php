@@ -12,12 +12,19 @@ class CategoryResource extends JsonResource
      *
      * @return array<string, mixed>
      */
-    public function toArray(Request $request): array
+    public function toArray(Request $request): array    //resolver este problema////////////////////////////////////////
+        //esto es para cuando el request sea para categorias, solo traiga los primeros 20 caracteres de la descripcion, sino toda la descripcion
     {
-//        return parent::toArray($request);
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'description' => $this->when($request->is('api/categories*'), function () use ($request) {
+//                return $this->description;
+                if($request->is('api/categories')){
+                    return str($this->description)->limit(20);
+                }
+                return $this->description;
+            }),
         ];
     }
 }

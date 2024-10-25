@@ -17,4 +17,9 @@ class CategoryController extends Controller
     public function show(Category $category){
         return new CategoryResource($category);
     }
+
+    public function list(){
+        return CategoryResource::collection(Category::all());
+    }
+
 }
