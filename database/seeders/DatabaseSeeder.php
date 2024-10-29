@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
 
         //con esto podemos crear 10 categorías
         Category::factory(10)->create();
+        Product::factory(20)->create();
 
     }
 }

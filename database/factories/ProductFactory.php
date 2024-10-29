@@ -17,7 +17,11 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' =>fake()->word(),
+            'category_id' => Category::inRandomOrder()->first()->id,
+            'description'=>fake()->paragraph(),
+            'price' => rand(1000,99999),
+
         ];
     }
 }
