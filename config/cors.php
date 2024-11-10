@@ -29,6 +29,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true, //para que solicite autenticacion para cuando se quiera acceder a la api
 
 ];
