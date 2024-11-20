@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V2;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -17,7 +18,9 @@ class CategoryController extends Controller
 
         abort_if(! auth()->user()->tokenCan('categories-list'),403);
 
-        return CategoryResource::collection(Category::all());
+        return CategoryResource::collection(Cache::rememberForever('categories', function (){
+            return Category::all();
+        }));
     }
 
     public function show(Category $category){
